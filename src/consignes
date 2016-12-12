@@ -1,0 +1,26 @@
+les agents extends un thread
+les agents connaissent
+positions connues
+position finales
+grilles
+
+
+communication par l'armoire et tiroir
+grille static
+gestion modification concurrentes
+arret lorsque tout les bidules sont à leur place
+
+class message
+{
+emeteur
+destinataire
+identifiant
+contenu et performatif (requete)
+
+}
+
+il faut indquer la position à libéré DELIVRE JE NE MENTIRAIS PLUS JAMAIS
+
+il doit chercher à satisfaire son but
+
+pour savoir s'il doit bouger il doit lire ses messages
