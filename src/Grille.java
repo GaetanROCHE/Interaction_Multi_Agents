@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Grille {
     private final int taille_X;
     private final int taille_Y;
-    private Case[][] grille;
+    static private Case[][] grille;
 
     public int getTaille_Y() {
         return taille_Y;
@@ -31,4 +31,7 @@ public class Grille {
         return grille[x][y];
     }
 
+    public boolean isIn(int newX, int newY) {
+        return newX < taille_X && newX >= 0 && newY < taille_Y && newY >= 0;
+    }
 }
