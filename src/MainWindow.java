@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -17,7 +19,6 @@ public class MainWindow extends JDialog {
     public MainWindow() {
         setContentPane(contentPane);
         setModal(true);
-
     }
 
     public static void main(String[] args) {
@@ -31,6 +32,16 @@ public class MainWindow extends JDialog {
 
         MainWindow dialog = new MainWindow();
         dialog.pack();
+
+        Timer timer = new javax.swing.Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                dialog.repaint();
+            }
+        });
+        timer.setRepeats(true);
+        timer.start();
+
         dialog.setVisible(true);
         System.exit(0);
     }
