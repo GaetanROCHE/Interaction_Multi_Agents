@@ -2,9 +2,9 @@
  * Created by Gaëtan on 12/12/2016.
  */
 public class Case {
-    final int coord_X;
-    final int coord_Y;
-    boolean token;
+    private final int coord_X;
+    private final int coord_Y;
+    private boolean token;
     Agent contenu;
 
     public Case(int x, int y) {
