@@ -24,10 +24,10 @@ public class MainWindow extends JDialog {
     public static void main(String[] args) {
         grille = new Grille(WIDTH, HEIGHT);
 
-        agents.add(new Agent(0, 0, grille, 1, 1, 255, 0, 0));
-        agents.add(new Agent(1, 1, grille, 2, 2, 0, 255, 0));
-        agents.add(new Agent(2, 2, grille, 3, 3, 0, 0, 255));
-        agents.add(new Agent(4, 4, grille, 4, 4, 255, 255, 255));
+        agents.add(new Agent(0, 0, grille, 0, 2, 255, 0, 0));
+        //agents.add(new Agent(1, 1, grille, 3, 3, 0, 255, 0));
+        agents.add(new Agent(0, 2, grille, 0, 0, 0, 0, 255));
+        //agents.add(new Agent(4, 4, grille, 4, 4, 255, 255, 255));
         agents.forEach(Agent::start);
 
         MainWindow dialog = new MainWindow();
@@ -37,6 +37,7 @@ public class MainWindow extends JDialog {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 dialog.repaint();
+                agents.forEach(Agent::toString);
             }
         });
         timer.setRepeats(true);

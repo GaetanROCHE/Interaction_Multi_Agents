@@ -75,13 +75,13 @@ public class Agent extends Thread {
         }
         while(running) {
             System.out.println("bouge");
-            if (coord_X - objectif_X > 0 && move('b')) {
+            if (coord_Y - objectif_Y > 0 && move('b')) {
                 System.out.println("deplace en bas");
-            } else if (coord_X - objectif_X < 0 && move('h')) {
+            } else if (coord_Y - objectif_Y < 0 && move('h')) {
                 System.out.println("deplace en haut");
-            } else if (coord_Y - objectif_Y > 0 && move('g')) {
+            } else if (coord_X - objectif_X > 0 && move('g')) {
                 System.out.println("deplace a gauche");
-            } else if (coord_Y - objectif_Y < 0 && move('d')) {
+            } else if (coord_X - objectif_X < 0 && move('d')) {
                 System.out.println("deplace a droite");
             } else {
                 System.out.println("deplace pas");
@@ -105,5 +105,9 @@ public class Agent extends Thread {
 
     public int getB() {
         return b;
+    }
+
+    public String toString() {
+        return "pos : (" + coord_X + "," + coord_Y + ")";
     }
 }
