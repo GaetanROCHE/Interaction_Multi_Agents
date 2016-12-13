@@ -16,6 +16,8 @@ public class Agent extends Thread {
         coord_Y = y;
         if(!grille.getCase(x, y).getToken())
             System.out.println("erreur de placement de l'agent");
+        else
+            g.getCase(x,y).rempliCase(this);
         grille = g;
         objectif_X = obj_X;
         objectif_Y = obj_Y;

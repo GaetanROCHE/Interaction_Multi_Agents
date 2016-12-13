@@ -23,14 +23,20 @@ public class Case {
     }
 
     boolean releaseToken(){
+        token = true;
         return true;
     }
 
     public boolean videCase(){
+        contenu = null;
         return true;
     }
 
     public boolean rempliCase(Agent a){
-        return true;
+        if(contenu == null) {
+            contenu = a;
+            return true;
+        }
+        return false;
     }
 }
