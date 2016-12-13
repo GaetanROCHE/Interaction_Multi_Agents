@@ -14,16 +14,16 @@ public class Agent extends Thread {
     public Agent(int x, int y, Grille g, int obj_X, int obj_Y, int red, int green, int blue){
         coord_X = x;
         coord_Y = y;
-        if(!grille.getCase(x, y).getToken())
+        if(!g.getCase(x, y).getToken())
             System.out.println("erreur de placement de l'agent");
         else
             g.getCase(x,y).rempliCase(this);
         grille = g;
         objectif_X = obj_X;
         objectif_Y = obj_Y;
-        r = red;
+        this.r = red;
         this.g = green;
-        b = blue;
+        this.b = blue;
     }
 
     private boolean move(char c){
