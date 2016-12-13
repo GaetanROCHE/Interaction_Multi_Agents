@@ -74,8 +74,12 @@ public class Agent extends Thread {
             ex.printStackTrace();
         }
         while(running) {
-            System.out.println("bouge");
-            if (coord_Y - objectif_Y > 0 && move('b')) {
+            if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
+                if (coord_X - objectif_X > 0 && move('g')){
+
+                }
+            }
+            if (coord_X - objectif_X > 0 && move('b') ) {
                 System.out.println("deplace en bas");
             } else if (coord_Y - objectif_Y < 0 && move('h')) {
                 System.out.println("deplace en haut");
@@ -88,7 +92,7 @@ public class Agent extends Thread {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

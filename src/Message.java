@@ -9,6 +9,7 @@ public class Message {
     int id;
     String contenu;
     Enumeration<Pregoratif> pregoratif;
+    boolean read;
 
     public Message(Agent emetor, Agent destinator, int id, String contenu, Enumeration<Pregoratif> pregoratif) {
         this.emetor = emetor;
@@ -16,5 +17,6 @@ public class Message {
         this.id = id;
         this.contenu = contenu;
         this.pregoratif = pregoratif;
+        this.read = false;
     }
 }
