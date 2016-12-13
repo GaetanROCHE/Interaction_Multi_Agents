@@ -35,16 +35,18 @@ public class MainWindow extends JDialog {
     }
 
     public void paint(Graphics g) {
+        int OFFSETX = 16;
+        int OFFSETY = 73;
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Case currentCase = grille.getCase(i, j);
                 if (currentCase.contenu != null) {
                     g.setColor(new Color(currentCase.contenu.getR(), currentCase.contenu.getG(), currentCase.contenu.getB()));
-                    g.fillRect(i * 40, j * 40, 39, 39);
+                    g.fillRect(OFFSETX + i * 80, OFFSETY + j * 80, 79, 79);
                 }
                 else {
                     g.setColor(new Color(0, 0, 0));
-                    g.fillRect(i * 40, j * 40, 39, 39);
+                    g.fillRect(OFFSETX + i * 80, OFFSETY + j * 80, 79, 79);
                 }
             }
         }
