@@ -11,14 +11,14 @@ public class Agent extends Thread {
     int g;
     int b;
 
-    public Agent(int x, int y, Grille g, int obj_X, int obj_Y, int red, int green, int blue){
+    public Agent(int x, int y, Grille grille, int obj_X, int obj_Y, int red, int green, int blue){
         coord_X = x;
         coord_Y = y;
-        if(!g.getCase(x, y).getToken())
+        if(!grille.getCase(x, y).getToken())
             System.out.println("erreur de placement de l'agent");
         else
-            g.getCase(x,y).rempliCase(this);
-        grille = g;
+            grille.getCase(x,y).rempliCase(this);
+        this.grille = grille;
         objectif_X = obj_X;
         objectif_Y = obj_Y;
         this.r = red;

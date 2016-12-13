@@ -28,7 +28,9 @@ public class Grille {
     }
 
     public Case getCase(int x, int y){
-        return grille[x][y];
+        if(this.isIn(x,y))
+            return grille[x][y];
+        return null;
     }
 
     public boolean isIn(int newX, int newY) {
