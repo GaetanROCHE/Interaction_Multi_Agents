@@ -7,8 +7,11 @@ public class Agent extends Thread {
     Grille grille;
     int objectif_X;
     int objectif_Y;
+    int r;
+    int g;
+    int b;
 
-    public Agent(int x, int y, Grille g, int obj_X, int obj_Y){
+    public Agent(int x, int y, Grille g, int obj_X, int obj_Y, int red, int green, int blue){
         coord_X = x;
         coord_Y = y;
         if(!grille.getCase(x, y).getToken())
@@ -16,6 +19,9 @@ public class Agent extends Thread {
         grille = g;
         objectif_X = obj_X;
         objectif_Y = obj_Y;
+        r = red;
+        this.g = green;
+        b = blue;
     }
 
     private boolean move(char c){
@@ -60,4 +66,15 @@ public class Agent extends Thread {
         else if (coord_Y - objectif_Y < 0 && move('d')){}
     }
 
+    public int getR() {
+        return r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public int getB() {
+        return b;
+    }
 }
