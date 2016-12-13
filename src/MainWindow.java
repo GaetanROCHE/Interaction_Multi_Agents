@@ -30,8 +30,10 @@ public class MainWindow extends JDialog {
         grille = new Grille(WIDTH, HEIGHT);
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                if (grille[i][j].contenu != null)
-                    drawPanel.getGraphics().drawRect (10, 10, 100, 20);
+                Case currentCase = grille.getCase(i, j);
+                if (currentCase.contenu != null)
+                    g.setColor(new Color(currentCase.getR(), currentCase.getG(), currentCase.getB()));
+                    g.fillRect(i*40, j*40, 40, 40);
             }
         }
     }
