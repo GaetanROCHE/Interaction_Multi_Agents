@@ -49,7 +49,6 @@ public class Case {
     }
 
     public Agent getContenu() {
-
         return contenu;
     }
 }

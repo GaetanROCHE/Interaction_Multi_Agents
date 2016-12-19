@@ -1,3 +1,5 @@
+import sun.applet.Main;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -43,10 +45,10 @@ public class Agent extends Thread {
         int newX = coord_X, newY = coord_Y;
         switch(c) {
             case 'h':
-                newY++;
+                newY--;
                 break;
             case 'b':
-                newY--;
+                newY++;
                 break;
             case 'g':
                 newX--;
@@ -62,6 +64,7 @@ public class Agent extends Thread {
             Case newCase = grille.getCase(newX, newY);
             Case oldCase = grille.getCase(coord_X, coord_Y);
             if (newCase.getToken()) {
+                //System.out.println("Taking token of case : " + newCase.getCoord_X() + "," + newCase.getCoord_Y());
                 oldCase.videCase();
                 oldCase.releaseToken();
                 coord_X = newX;
@@ -76,49 +79,61 @@ public class Agent extends Thread {
         return false;
     }
 
-    public void envoiMessage(Agent dest, String cont, Performatif perf) {
+    public synchronized void envoiMessage(Agent dest, String cont, Performatif perf) {
         ArrayList<Message> tiroir = armoire.get(dest);
         tiroir.add(new Message(this, dest, 0, cont, perf));
+        debug("Sent a message");
     }
 
     @Override
     public void run(){
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
         while(running) {
-            if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
-                if (coord_X - objectif_X > 0 ){//on essai d'aller à gauche
-                    if(!move('g')){
-                        System.out.println("passage bloqué à gauche");
+            int nextX = coord_X;
+            int nextY = coord_Y;
+            //if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
+                if (coord_X - objectif_X > 0 ){//on essaie d'aller à gauche
+                    if(grille.getCase(nextX - 1, nextY).getContenu() == null){
+                        nextX--;
                     }
                 }
-                else{
-                    if(!move('d')){
-                        System.out.println("passage bloqué à droite");
+                else if (coord_X != objectif_X){
+                    if(grille.getCase(nextX + 1, nextY).getContenu() == null){
+                        nextX++;
                     }
                 }
-            }
-            else{
-                if (coord_Y - objectif_Y > 0 ){//on essai d'aller en haut
-                    if(!move('h')){
-                        System.out.println("passage bloqué en haut");
+            //}
+            //else{
+                if (nextX == coord_X && coord_Y - objectif_Y > 0 ){//on essaie d'aller en haut
+                    if(grille.getCase(nextX, nextY - 1).getContenu() == null){
+                        nextY--;
                     }
                 }
-                else{
-                    if(!move('b')){
-                        System.out.println("passage bloqué en bas");
+                else if (coord_X != objectif_X){
+                    if(grille.getCase(nextX, nextY + 1).getContenu() == null){
+                        nextY++;
                     }
                 }
-            }
+            //}
+            // lecture messages
+
+            //si pas de message : bouge ou envoie messages
+
+            //si message --> -
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
         }
+    }
+
+    synchronized void debug(String message) {
+        MainWindow.DEBUG += "\n" + message;
     }
 
     public int getR() {
