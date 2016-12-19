@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,6 +15,9 @@ public class Agent extends Thread {
     int r;
     int g;
     int b;
+
+    static HashMap<Agent, ArrayList<Message>> armoire = new HashMap<>();
+
     HashMap<Agent, ArrayList<Message>> messages;
     private boolean running = true;
 

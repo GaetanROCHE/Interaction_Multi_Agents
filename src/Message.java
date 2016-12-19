@@ -8,10 +8,10 @@ public class Message {
     Agent destinator;
     int id;
     String contenu;
-    Enumeration<Pregoratif> pregoratif;
+    Enumeration<Performatif> pregoratif;
     boolean read;
 
-    public Message(Agent emetor, Agent destinator, int id, String contenu, Enumeration<Pregoratif> pregoratif) {
+    public Message(Agent emetor, Agent destinator, int id, String contenu, Enumeration<Performatif> pregoratif) {
         this.emetor = emetor;
         this.destinator = destinator;
         this.id = id;
