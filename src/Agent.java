@@ -76,8 +76,9 @@ public class Agent extends Thread {
         return false;
     }
 
-    private boolean envoiMessage(Agent contenu, String s, Performatif request) {
-        return true;
+    public void envoiMessage(Agent dest, String cont, Performatif perf) {
+        ArrayList<Message> tiroir = armoire.get(dest);
+        tiroir.add(new Message(this, dest, 0, cont, perf));
     }
 
     @Override
@@ -118,11 +119,6 @@ public class Agent extends Thread {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public void envoiMessage(Agent dest, String cont, Enumeration<Performatif> perf) {
-        ArrayList<Message> tiroir = armoire.get(dest);
-        tiroir.add(new Message(this, dest, 0, cont, perf));
     }
 
     public int getR() {

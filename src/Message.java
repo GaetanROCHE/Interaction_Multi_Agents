@@ -8,15 +8,15 @@ public class Message {
     Agent destinateur;
     int id;
     String contenu;
-    Enumeration<Performatif> performatif;
+    Performatif performatif;
     boolean isRead;
 
-    public Message(Agent emetor, Agent destinator, int id, String contenu, Enumeration<Performatif> pregoratif) {
+    public Message(Agent emetor, Agent destinator, int id, String contenu, Performatif performatif) {
         this.emetteur = emetor;
         this.destinateur = destinator;
         this.id = id;
         this.contenu = contenu;
-        this.performatif = pregoratif;
+        this.performatif = performatif;
         this.isRead = false;
     }
 }
