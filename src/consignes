@@ -8,7 +8,7 @@ grilles
 communication par l'armoire et tiroir
 grille static
 gestion modification concurrentes
-arret lorsque tout les bidules sont à leur place
+arret lorsque tous les bidules sont à leur place
 
 class message
 {
@@ -19,7 +19,7 @@ contenu et performatif (requete)
 
 }
 
-il faut indquer la position à libéré DELIVRE JE NE MENTIRAIS PLUS JAMAIS
+il faut indquer la position à libéré
 
 il doit chercher à satisfaire son but
 
