@@ -39,4 +39,17 @@ public class Case {
         }
         return false;
     }
+
+    public int getCoord_X() {
+        return coord_X;
+    }
+
+    public int getCoord_Y() {
+        return coord_Y;
+    }
+
+    public Agent getContenu() {
+
+        return contenu;
+    }
 }
