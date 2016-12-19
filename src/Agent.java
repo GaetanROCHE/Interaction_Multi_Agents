@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 /**
@@ -62,8 +63,15 @@ public class Agent extends Thread {
                 newCase.rempliCase(this);
                 return true;
             }
+            else{
+                this.envoiMessage(newCase.getContenu(), "GTFO( " + newCase.getCoord_X()+", " + newCase.getCoord_Y()+" )", Pregoratif.REQUEST );
+            }
         }
         return false;
+    }
+
+    private boolean envoiMessage(Agent contenu, String s, Pregoratif request) {
+        return true;
     }
 
     @Override
@@ -75,22 +83,29 @@ public class Agent extends Thread {
         }
         while(running) {
             if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
-                if (coord_X - objectif_X > 0 && move('g')){
-
+                if (coord_X - objectif_X > 0 ){//on essai d'aller à gauche
+                    if(!move('g')){
+                        System.out.println("passage bloqué à gauche");
+                    }
+                }
+                else{
+                    if(!move('d')){
+                        System.out.println("passage bloqué à droite");
+                    }
                 }
             }
-            if (coord_X - objectif_X > 0 && move('b') ) {
-                System.out.println("deplace en bas");
-            } else if (coord_Y - objectif_Y < 0 && move('h')) {
-                System.out.println("deplace en haut");
-            } else if (coord_X - objectif_X > 0 && move('g')) {
-                System.out.println("deplace a gauche");
-            } else if (coord_X - objectif_X < 0 && move('d')) {
-                System.out.println("deplace a droite");
-            } else {
-                System.out.println("deplace pas");
+            else{
+                if (coord_Y - objectif_Y > 0 ){//on essai d'aller en haut
+                    if(!move('h')){
+                        System.out.println("passage bloqué en haut");
+                    }
+                }
+                else{
+                    if(!move('b')){
+                        System.out.println("passage bloqué en bas");
+                    }
+                }
             }
-
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
