@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 /**
@@ -34,6 +35,9 @@ public class Agent extends Thread {
         this.g = green;
         this.b = blue;
         messages = new HashMap<>();
+
+        //initialise un tiroir à son nom
+        armoire.put(this, new ArrayList<Message>());
     }
 
     private boolean move(char c){
@@ -103,6 +107,11 @@ public class Agent extends Thread {
         }
     }
 
+    public void envoiMessage(Agent dest, String cont, Enumeration<Performatif> perf) {
+        ArrayList<Message> tiroir = armoire.get(dest);
+        tiroir.add(new Message(this, dest, 0, cont, perf));
+    }
+
     public int getR() {
         return r;
     }
@@ -111,9 +120,7 @@ public class Agent extends Thread {
         return g;
     }
 
-    public int getB() {
-        return b;
-    }
+    public int getB() { return b; }
 
     public String toString() {
         return "pos : (" + coord_X + "," + coord_Y + ")";
