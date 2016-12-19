@@ -73,7 +73,7 @@ public class Agent extends Thread {
                 return true;
             }
             else{
-                this.envoiMessage(newCase.getContenu(), "GTFO( " + newCase.getCoord_X()+", " + newCase.getCoord_Y()+" )", Performatif.REQUEST );
+                this.envoiMessage(newCase.getContenu(), newCase.getCoord_X()+"," + newCase.getCoord_Y(), Performatif.REQUEST );
             }
         }
         return false;
@@ -83,6 +83,11 @@ public class Agent extends Thread {
         ArrayList<Message> tiroir = armoire.get(dest);
         tiroir.add(new Message(this, dest, 0, cont, perf));
         debug("Sent a message");
+    }
+
+    public synchronized ArrayList<Message> lectureMessages() {
+        debug("Red new messages");
+        return armoire.get(this);
     }
 
     @Override
@@ -120,10 +125,20 @@ public class Agent extends Thread {
                 }
             //}
             // lecture messages
+            ArrayList<Message> inbox = lectureMessages();
+            for (Message mess : inbox ) {
+                if (!mess.isRead) {
+                    int messX = Integer.parseInt(mess.contenu.split(",")[0]);
+                    int messY = Integer.parseInt(mess.contenu.split(",")[1]);
+                    if (messX == coord_X && messY == coord_Y) {
+                        //do stuff
+                    }
+                }
+            }
 
-            //si pas de message : bouge ou envoie messages
+            // si pas de message : bouge ou envoie messages
 
-            //si message --> -
+            // si message --> -
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
