@@ -3,6 +3,7 @@ import sun.applet.Main;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by Gaëtan on 12/12/2016.
@@ -16,6 +17,7 @@ public class Agent extends Thread {
     int r;
     int g;
     int b;
+    boolean need_move;
 
     static HashMap<Agent, ArrayList<Message>> armoire = new HashMap<>();
 
@@ -36,30 +38,13 @@ public class Agent extends Thread {
         this.g = green;
         this.b = blue;
         messages = new HashMap<>();
+        need_move = false;
 
         //initialise un tiroir à son nom
         armoire.put(this, new ArrayList<Message>());
     }
 
-    private boolean move(char c){
-        int newX = coord_X, newY = coord_Y;
-        switch(c) {
-            case 'h':
-                newY--;
-                break;
-            case 'b':
-                newY++;
-                break;
-            case 'g':
-                newX--;
-                break;
-            case 'd':
-                newX++;
-                break;
-            default:
-                System.out.println("error unacceptable move");
-                break;
-        }
+    private boolean move(int newX, int newY){
         if(grille.isIn(newX,newY)){
             Case newCase = grille.getCase(newX, newY);
             Case oldCase = grille.getCase(coord_X, coord_Y);
@@ -70,10 +55,13 @@ public class Agent extends Thread {
                 coord_X = newX;
                 coord_Y = newY;
                 newCase.rempliCase(this);
+                need_move = false;
                 return true;
             }
             else{
-                this.envoiMessage(newCase.getContenu(), newCase.getCoord_X()+"," + newCase.getCoord_Y(), Performatif.REQUEST );
+                try {
+                    this.envoiMessage(newCase.getContenu(), newCase.getCoord_X() + "," + newCase.getCoord_Y(), Performatif.REQUEST);
+                }catch(Exception ignored){}
             }
         }
         return false;
@@ -100,7 +88,7 @@ public class Agent extends Thread {
         while(running) {
             int nextX = coord_X;
             int nextY = coord_Y;
-            //if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
+            if(Math.pow(coord_X - objectif_X, 2) > Math.pow(coord_Y - objectif_Y, 2)){
                 if (coord_X - objectif_X > 0 ){//on essaie d'aller à gauche
                     if(grille.getCase(nextX - 1, nextY).getContenu() == null){
                         nextX--;
@@ -111,8 +99,8 @@ public class Agent extends Thread {
                         nextX++;
                     }
                 }
-            //}
-            //else{
+            }
+            else{
                 if (nextX == coord_X && coord_Y - objectif_Y > 0 ){//on essaie d'aller en haut
                     if(grille.getCase(nextX, nextY - 1).getContenu() == null){
                         nextY--;
@@ -123,7 +111,7 @@ public class Agent extends Thread {
                         nextY++;
                     }
                 }
-            //}
+            }
             // lecture messages
             ArrayList<Message> inbox = lectureMessages();
             for (Message mess : inbox ) {
@@ -132,9 +120,32 @@ public class Agent extends Thread {
                     int messY = Integer.parseInt(mess.contenu.split(",")[1]);
                     if (messX == coord_X && messY == coord_Y) {
                         //do stuff
+                        need_move = true;
                     }
                 }
             }
+
+            if(need_move && nextX == coord_X && nextY == coord_Y){
+                Random r = new Random();
+                int dir = r.nextInt(4);
+                switch(dir){
+                    case 0 :
+                        move(coord_X + 1,coord_Y);
+                        break;
+                    case 1 :
+                        move(coord_X - 1,coord_Y);
+                        break;
+                    case 2 :
+                        move(coord_X,coord_Y + 1);
+                        break;
+                    case 3 :
+                        move(coord_X,coord_Y - 1);
+                        break;
+                }
+            }
+            else
+                if(coord_X != objectif_X || coord_Y != objectif_Y)
+                    move(nextX, nextY);
 
             // si pas de message : bouge ou envoie messages
 
