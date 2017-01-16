@@ -41,6 +41,10 @@ public class Agent extends Thread {
         armoire.put(this, new ArrayList<Message>());
     }
 
+    public Agent(int x, int y, Grille grille, int obj_X, int obj_Y) {
+        this(x, y, grille, obj_X, obj_Y, 150, obj_X*50, obj_Y*50);
+    }
+
     private synchronized boolean move(int newX, int newY){
         if(grille.isIn(newX,newY)){
             Case newCase = grille.getCase(newX, newY);
@@ -72,7 +76,7 @@ public class Agent extends Thread {
 
     public synchronized List<Message> lectureMessages() {
         debug("Red new messages");
-        List<Message> ret = armoire.get(this);
+        List<Message> ret = new ArrayList<>(armoire.get(this));
         return ret;
     }
 
