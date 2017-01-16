@@ -98,6 +98,12 @@ public class Agent extends Thread {
         return ret;
     }
 
+    public synchronized void lireMessage(Message m) {
+        while(!getTokenArmoire());
+        m.lire();
+        releaseTokenArmoire();
+    }
+
     @Override
     public void run(){
         try {
@@ -142,7 +148,7 @@ public class Agent extends Thread {
                         //do stuff
                         need_move = true;
                     }
-                    mess.lire();
+                    lireMessage(mess);
                 }
             }
 
@@ -172,7 +178,7 @@ public class Agent extends Thread {
 
             // si message --> -
             try {
-                Thread.sleep(2000);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

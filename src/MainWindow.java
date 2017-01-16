@@ -26,17 +26,34 @@ public class MainWindow extends JDialog {
     public static void main(String[] args) {
         grille = new Grille(WIDTH, HEIGHT);
 
-        agents.add(new Agent(0, 0, grille, 2, 2));
-        //agents.add(new Agent(1, 1, grille, 3, 3, 0, 255, 0));
-        agents.add(new Agent(2, 2, grille, 0, 0));
-        agents.add(new Agent(1, 1, grille, 1, 1));
-        agents.add(new Agent(2, 1, grille, 0, 3));
-        agents.add(new Agent(3, 1, grille, 3, 0));
+        /*agents.add(new Agent(4, 0, grille, 0, 0));
+        agents.add(new Agent(3, 0, grille, 0, 1));
+        agents.add(new Agent(2, 0, grille, 0, 2));
+        agents.add(new Agent(1, 0, grille, 0, 3));
+        agents.add(new Agent(0, 0, grille, 0, 4));
 
-        agents.add(new Agent(0, 1, grille, 4, 0));
-        agents.add(new Agent(0, 2, grille, 4, 1));
-        agents.add(new Agent(0, 3, grille, 4, 2));
-        agents.add(new Agent(0, 4, grille, 4, 4));
+        agents.add(new Agent(4, 1, grille, 1, 0));
+        agents.add(new Agent(3, 1, grille, 1, 1));
+        agents.add(new Agent(2, 1, grille, 1, 2));
+        agents.add(new Agent(1, 1, grille, 1, 3));
+        agents.add(new Agent(0, 1, grille, 1, 4));
+
+        agents.add(new Agent(4, 2, grille, 2, 0));
+        agents.add(new Agent(3, 2, grille, 2, 1));
+        agents.add(new Agent(2, 2, grille, 2, 2));
+        agents.add(new Agent(1, 2, grille, 2, 3));
+        agents.add(new Agent(0, 2, grille, 2, 4));
+
+        agents.add(new Agent(4, 3, grille, 3, 0));
+        agents.add(new Agent(3, 3, grille, 3, 1));
+        agents.add(new Agent(2, 3, grille, 3, 2));
+        agents.add(new Agent(1, 3, grille, 3, 3));
+        agents.add(new Agent(0, 3, grille, 3, 4));
+        */
+
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
+                agents.add(new Agent(i, j, grille, i, j));
 
 
         //agents.add(new Agent(4, 4, grille, 4, 4, 255, 255, 255));
