@@ -15,6 +15,7 @@ public class Agent extends Thread {
     int g;
     int b;
     boolean need_move;
+    boolean token_armoire; // true : free , false : taken
 
     static HashMap<Agent, ArrayList<Message>> armoire = new HashMap<>();
 
@@ -36,7 +37,7 @@ public class Agent extends Thread {
         this.b = blue;
         messages = new HashMap<>();
         need_move = false;
-
+        token_armoire = true;
         //initialise un tiroir à son nom
         armoire.put(this, new ArrayList<Message>());
     }
@@ -68,15 +69,32 @@ public class Agent extends Thread {
         return false;
     }
 
+    private boolean getTokenArmoire(){
+        if(token_armoire){
+            token_armoire= false;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean releaseTokenArmoire(){
+        token_armoire = true;
+        return true;
+    }
+
     public synchronized void envoiMessage(Agent dest, String cont, Performatif perf) {
+        while(!getTokenArmoire());
         ArrayList<Message> tiroir = armoire.get(dest);
         tiroir.add(new Message(this, dest, 0, cont, perf));
         debug("Sent a message");
+        releaseTokenArmoire();
     }
 
     public synchronized List<Message> lectureMessages() {
+        while(!getTokenArmoire());
         debug("Red new messages");
         List<Message> ret = new ArrayList<>(armoire.get(this));
+        releaseTokenArmoire();
         return ret;
     }
 
