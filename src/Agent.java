@@ -41,7 +41,7 @@ public class Agent extends Thread {
         armoire.put(this, new ArrayList<Message>());
     }
 
-    private boolean move(int newX, int newY){
+    private synchronized boolean move(int newX, int newY){
         if(grille.isIn(newX,newY)){
             Case newCase = grille.getCase(newX, newY);
             Case oldCase = grille.getCase(coord_X, coord_Y);
@@ -113,7 +113,7 @@ public class Agent extends Thread {
             // lecture messages
             List<Message> inbox = lectureMessages();
             for (Message mess : inbox) {
-                if (!mess.isRead) {
+                if (mess != null && !mess.isRead) {
                     int messX = Integer.parseInt(mess.contenu.split(",")[0]);
                     int messY = Integer.parseInt(mess.contenu.split(",")[1]);
                     if (messX == coord_X && messY == coord_Y) {
@@ -158,7 +158,7 @@ public class Agent extends Thread {
     }
 
     synchronized void debug(String message) {
-        MainWindow.DEBUG += "\n" + message;
+        /*MainWindow.DEBUG += "\n" + message;*/
     }
 
     public int getR() {

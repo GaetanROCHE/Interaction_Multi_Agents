@@ -33,6 +33,12 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(2, 1, grille, 0, 3, 0, 255, 255));
         agents.add(new Agent(3, 1, grille, 3, 0, 255, 0, 255));
 
+        agents.add(new Agent(0, 1, grille, 4, 0, 200, 0, 255));
+        agents.add(new Agent(0, 2, grille, 4, 1, 150, 0, 255));
+        agents.add(new Agent(0, 3, grille, 4, 2, 100, 0, 255));
+        agents.add(new Agent(0, 4, grille, 4, 4, 50, 0, 255));
+
+
         //agents.add(new Agent(4, 4, grille, 4, 4, 255, 255, 255));
         agents.forEach(Agent::start);
 
