@@ -1,9 +1,6 @@
 import sun.applet.Main;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Gaëtan on 12/12/2016.
@@ -73,9 +70,10 @@ public class Agent extends Thread {
         debug("Sent a message");
     }
 
-    public synchronized ArrayList<Message> lectureMessages() {
+    public synchronized List<Message> lectureMessages() {
         debug("Red new messages");
-        return armoire.get(this);
+        List<Message> ret = armoire.get(this);
+        return ret;
     }
 
     @Override
@@ -113,8 +111,8 @@ public class Agent extends Thread {
                 }
             }
             // lecture messages
-            ArrayList<Message> inbox = lectureMessages();
-            for (Message mess : inbox ) {
+            List<Message> inbox = lectureMessages();
+            for (Message mess : inbox) {
                 if (!mess.isRead) {
                     int messX = Integer.parseInt(mess.contenu.split(",")[0]);
                     int messY = Integer.parseInt(mess.contenu.split(",")[1]);
@@ -122,6 +120,7 @@ public class Agent extends Thread {
                         //do stuff
                         need_move = true;
                     }
+                    mess.lire();
                 }
             }
 

@@ -19,4 +19,8 @@ public class Message {
         this.performatif = performatif;
         this.isRead = false;
     }
+
+    public void lire() {
+        this.isRead = true;
+    }
 }
