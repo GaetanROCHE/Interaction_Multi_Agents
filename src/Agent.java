@@ -14,6 +14,7 @@ public class Agent extends Thread {
     int r;
     int g;
     int b;
+    int count_turn;
     boolean need_move;
     boolean token_armoire; // true : free , false : taken
 
@@ -37,6 +38,7 @@ public class Agent extends Thread {
         this.b = blue;
         messages = new HashMap<>();
         need_move = false;
+        count_turn = 0;
         token_armoire = true;
         //initialise un tiroir à son nom
         armoire.put(this, new ArrayList<Message>());
@@ -147,21 +149,30 @@ public class Agent extends Thread {
             }
 
             if(need_move && nextX == coord_X && nextY == coord_Y){
-                Random r = new Random();
-                int dir = r.nextInt(4);
-                switch(dir){
-                    case 0 :
-                        move(coord_X + 1,coord_Y);
-                        break;
-                    case 1 :
-                        move(coord_X - 1,coord_Y);
-                        break;
-                    case 2 :
-                        move(coord_X,coord_Y + 1);
-                        break;
-                    case 3 :
-                        move(coord_X,coord_Y - 1);
-                        break;
+                count_turn ++;
+                if(count_turn < 3) {
+                    Random r = new Random();
+                    boolean moved = false;
+                    int dir = r.nextInt(4);
+                    switch (dir) {
+                        case 0:
+                            moved = move(coord_X + 1, coord_Y);
+                            break;
+                        case 1:
+                            moved = move(coord_X - 1, coord_Y);
+                            break;
+                        case 2:
+                            moved = move(coord_X, coord_Y + 1);
+                            break;
+                        case 3:
+                            moved = move(coord_X, coord_Y - 1);
+                            break;
+                    }
+                    if(moved)
+                        count_turn = 0;
+                }else{
+                    count_turn = 0;
+                    need_move = false;
                 }
             }
             else
