@@ -6,6 +6,7 @@ import java.util.*;
  * Created by Gaëtan on 12/12/2016.
  */
 public class Agent extends Thread {
+    static Random rnd = new Random();
     int coord_X;
     int coord_Y;
     Grille grille;
@@ -52,7 +53,7 @@ public class Agent extends Thread {
         if(grille.isIn(newX,newY)){
             Case newCase = grille.getCase(newX, newY);
             Case oldCase = grille.getCase(coord_X, coord_Y);
-            if (newCase.getToken()) {
+            if (newCase.contenu == null && newCase.getToken()) {
                 //System.out.println("Taking token of case : " + newCase.getCoord_X() + "," + newCase.getCoord_Y());
                 oldCase.videCase();
                 oldCase.releaseToken();
@@ -189,7 +190,7 @@ public class Agent extends Thread {
 
             // si message --> -
             try {
-                Thread.sleep(100);
+                Thread.sleep(rnd.nextInt(100));
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

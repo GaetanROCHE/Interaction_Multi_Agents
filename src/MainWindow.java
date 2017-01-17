@@ -2,13 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainWindow extends JDialog {
     private JPanel contentPane;
     private JTextArea textArea;
     private JPanel drawPanel;
+    private JPanel solPanel;
 
     private static final int HEIGHT = 5;
     private static final int WIDTH = 5;
@@ -51,9 +54,29 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(0, 3, grille, 3, 4));
         */
 
+        double PROBA = 0.75;
+        Random rnd = new Random();
+        List<Point> taken = new ArrayList<>();
+
         for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
-                agents.add(new Agent(i, j, grille, i, j));
+            for (int j = 0; j < 5; j++){
+                if (rnd.nextDouble() < PROBA) {
+                    boolean loop;
+                    int x;
+                    int y;
+                    do {
+                        x = rnd.nextInt(5);
+                        y = rnd.nextInt(5);
+                        loop = false;
+                        for (Point2D p : taken)
+                            if (p.getX() == x && p.getY() == y)
+                                loop = true;
+                    } while(loop);
+                    taken.add(new Point(x, y));
+                    agents.add(new Agent(x, y, grille, i, j));
+                }
+            }
+
 
 
         //agents.add(new Agent(4, 4, grille, 4, 4, 255, 255, 255));
@@ -92,6 +115,16 @@ public class MainWindow extends JDialog {
                 }
             }
         }
+
+        int OFFSETX2 = 430;
+        int OFFSETY2 = 73;
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                g.setColor(new Color(150, i*50, j*50));
+                g.fillRect(OFFSETX2 + i * 80, OFFSETY2 + j * 80, 79, 79);
+            }
+        }
+
         textArea.append(DEBUG);
         DEBUG = "";
     }
