@@ -54,7 +54,7 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(0, 3, grille, 3, 4));
         */
 
-        double PROBA = 0.75;
+        double PROBA = 1;
         Random rnd = new Random();
         List<Point> taken = new ArrayList<>();
 
@@ -72,8 +72,10 @@ public class MainWindow extends JDialog {
                             if (p.getX() == x && p.getY() == y)
                                 loop = true;
                     } while(loop);
-                    taken.add(new Point(x, y));
-                    agents.add(new Agent(x, y, grille, i, j));
+                    if(taken.size() < 24) {
+                        taken.add(new Point(x, y));
+                        agents.add(new Agent(x, y, grille, i, j));
+                    }
                 }
             }
 
@@ -85,7 +87,7 @@ public class MainWindow extends JDialog {
         MainWindow dialog = new MainWindow();
         dialog.pack();
 
-        Timer timer = new javax.swing.Timer(500, new ActionListener() {
+        Timer timer = new javax.swing.Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 dialog.repaint();
