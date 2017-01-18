@@ -15,8 +15,8 @@ public class MainWindow extends JDialog {
     private JPanel solPanel;
     private JProgressBar progressBar1;
 
-    private static final int HEIGHT = 5;
-    private static final int WIDTH = 5;
+    private static final int HEIGHT = 6;
+    private static final int WIDTH = 6;
 
     public static String DEBUG;
     public static int numberRemaining;
@@ -59,27 +59,28 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(0, 3, grille, 3, 4));
         */
 
-        double PROBA = 1;
+        double PROBA = 0.75;
         Random rnd = new Random();
         List<Point> taken = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++){
+        for (int i = 0; i < WIDTH; i++)
+            for (int j = 0; j < HEIGHT; j++){
                 if (rnd.nextDouble() < PROBA) {
                     boolean loop;
                     int x;
                     int y;
                     do {
-                        x = rnd.nextInt(5);
-                        y = rnd.nextInt(5);
+                        x = rnd.nextInt(WIDTH);
+                        y = rnd.nextInt(HEIGHT);
                         loop = false;
                         for (Point2D p : taken)
                             if (p.getX() == x && p.getY() == y)
                                 loop = true;
                     } while(loop);
-                    if(taken.size() < 24) {
+                    if(taken.size() < WIDTH*HEIGHT-1) {
                         taken.add(new Point(x, y));
-                        agents.add(new Agent(x, y, grille, i, j));
+                        //agents.add(new Agent(x, y, grille, i, j));
+                        agents.add(new Agent(x, y, grille, i, j, 150, i*(255/HEIGHT), j*(255/HEIGHT)));
                     }
                 }
             }
@@ -123,19 +124,19 @@ public class MainWindow extends JDialog {
             }
         }
 
-        numberRemaining = grille.getUnplacedCase();
-
-        int OFFSETX2 = 430;
+        int OFFSETX2 = WIDTH * 85;
         int OFFSETY2 = 73;
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                g.setColor(new Color(150, i*50, j*50));
+                g.setColor(new Color(150, i*(255/HEIGHT), j*(255/HEIGHT)));
                 g.fillRect(OFFSETX2 + i * 80, OFFSETY2 + j * 80, 79, 79);
             }
         }
 
 //        textArea.append(DEBUG);
         //remainingBloc.setText(String.valueOf(numberRemaining));
+
+        numberRemaining = grille.getUnplacedCase();
         progressBar1.setMaximum(HEIGHT*WIDTH);
         progressBar1.setString(String.valueOf(numberRemaining));
         progressBar1.setValue(HEIGHT*WIDTH - numberRemaining);

@@ -197,7 +197,7 @@ public class Agent extends Thread {
 
             // si message --> -
             try {
-                Thread.sleep(10 + rnd.nextInt(90));
+                Thread.sleep(10 + rnd.nextInt(190));
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
