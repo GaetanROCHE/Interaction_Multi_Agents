@@ -59,7 +59,6 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(0, 3, grille, 3, 4));
         */
 
-        double PROBA = 0.9;
         double PROBA = 1;
         Random rnd = new Random();
         List<Point> taken = new ArrayList<>();
