@@ -60,6 +60,7 @@ public class MainWindow extends JDialog {
         */
 
         double PROBA = 0.9;
+        double PROBA = 1;
         Random rnd = new Random();
         List<Point> taken = new ArrayList<>();
 
@@ -77,8 +78,10 @@ public class MainWindow extends JDialog {
                             if (p.getX() == x && p.getY() == y)
                                 loop = true;
                     } while(loop);
-                    taken.add(new Point(x, y));
-                    agents.add(new Agent(x, y, grille, i, j));
+                    if(taken.size() < 24) {
+                        taken.add(new Point(x, y));
+                        agents.add(new Agent(x, y, grille, i, j));
+                    }
                 }
             }
 
