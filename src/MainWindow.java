@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerAdapter;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ public class MainWindow extends JDialog {
     private JTextArea textArea;
     private JPanel drawPanel;
     private JPanel solPanel;
+    private JProgressBar progressBar1;
 
     private static final int HEIGHT = 5;
     private static final int WIDTH = 5;
 
     public static String DEBUG;
+    public static int numberRemaining;
 
     private static Grille grille;
     private static List<Agent> agents = new ArrayList<Agent>();
@@ -24,6 +27,8 @@ public class MainWindow extends JDialog {
     public MainWindow() {
         setContentPane(contentPane);
         setModal(true);
+        contentPane.addContainerListener(new ContainerAdapter() {
+        });
     }
 
     public static void main(String[] args) {
@@ -54,7 +59,7 @@ public class MainWindow extends JDialog {
         agents.add(new Agent(0, 3, grille, 3, 4));
         */
 
-        double PROBA = 0.75;
+        double PROBA = 0.9;
         Random rnd = new Random();
         List<Point> taken = new ArrayList<>();
 
@@ -85,7 +90,7 @@ public class MainWindow extends JDialog {
         MainWindow dialog = new MainWindow();
         dialog.pack();
 
-        Timer timer = new javax.swing.Timer(500, new ActionListener() {
+        Timer timer = new javax.swing.Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 dialog.repaint();
@@ -116,6 +121,8 @@ public class MainWindow extends JDialog {
             }
         }
 
+        numberRemaining = grille.getUnplacedCase();
+
         int OFFSETX2 = 430;
         int OFFSETY2 = 73;
         for (int i = 0; i < WIDTH; i++) {
@@ -125,7 +132,11 @@ public class MainWindow extends JDialog {
             }
         }
 
-        textArea.append(DEBUG);
+//        textArea.append(DEBUG);
+        //remainingBloc.setText(String.valueOf(numberRemaining));
+        progressBar1.setMaximum(HEIGHT*WIDTH);
+        progressBar1.setString(String.valueOf(numberRemaining));
+        progressBar1.setValue(HEIGHT*WIDTH - numberRemaining);
         DEBUG = "";
     }
 }

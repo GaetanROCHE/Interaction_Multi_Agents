@@ -33,6 +33,15 @@ public class Grille {
         return null;
     }
 
+    public int getUnplacedCase(){
+        int res = 0;
+        for(Case[] cases : grille)
+            for(Case c : cases)
+                if(c.getContenu() != null && (c.getContenu().objectif_X != c.getCoord_X() || c.getContenu().objectif_Y != c.getCoord_Y()))
+                    res++;
+        return res;
+    }
+
     public boolean isIn(int newX, int newY) {
         return newX < taille_X && newX >= 0 && newY < taille_Y && newY >= 0;
     }

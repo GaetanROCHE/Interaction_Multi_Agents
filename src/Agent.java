@@ -158,22 +158,29 @@ public class Agent extends Thread {
             if(need_move && nextX == coord_X && nextY == coord_Y){
                 count_turn ++;
                 if(count_turn < 3) {
-                    Random r = new Random();
+                    ArrayList<Case> emptyNeigh = getEmptyNeighboors();
                     boolean moved = false;
-                    int dir = r.nextInt(4);
-                    switch (dir) {
-                        case 0:
-                            moved = move(coord_X + 1, coord_Y);
-                            break;
-                        case 1:
-                            moved = move(coord_X - 1, coord_Y);
-                            break;
-                        case 2:
-                            moved = move(coord_X, coord_Y + 1);
-                            break;
-                        case 3:
-                            moved = move(coord_X, coord_Y - 1);
-                            break;
+                    Random r = new Random();
+                    if(emptyNeigh.size() != 0 && r.nextInt(2) == 1) {
+                        Case destination = emptyNeigh.get(r.nextInt(emptyNeigh.size()));
+                        moved = move(destination.getCoord_X(), destination.getCoord_Y());
+                    }
+                    else {
+                        int dir = r.nextInt(4);
+                        switch (dir) {
+                            case 0:
+                                moved = move(coord_X + 1, coord_Y);
+                                break;
+                            case 1:
+                                moved = move(coord_X - 1, coord_Y);
+                                break;
+                            case 2:
+                                moved = move(coord_X, coord_Y + 1);
+                                break;
+                            case 3:
+                                moved = move(coord_X, coord_Y - 1);
+                                break;
+                        }
                     }
                     if(moved)
                         count_turn = 0;
@@ -199,6 +206,19 @@ public class Agent extends Thread {
 
     synchronized void debug(String message) {
         /*MainWindow.DEBUG += "\n" + message;*/
+    }
+
+    public ArrayList<Case> getEmptyNeighboors(){
+        ArrayList<Case> neighboors = new ArrayList<>();
+        if(grille.getCase(coord_X+1,coord_Y) != null && grille.getCase(coord_X+1,coord_Y).getContenu() == null)
+            neighboors.add(grille.getCase(coord_X+1,coord_Y));
+        if(grille.getCase(coord_X-1,coord_Y) != null && grille.getCase(coord_X-1,coord_Y).getContenu() == null)
+            neighboors.add(grille.getCase(coord_X-1,coord_Y));
+        if(grille.getCase(coord_X,coord_Y+1) != null && grille.getCase(coord_X,coord_Y+1).getContenu() == null)
+            neighboors.add(grille.getCase(coord_X,coord_Y+1));
+        if(grille.getCase(coord_X,coord_Y-1) != null && grille.getCase(coord_X,coord_Y-1).getContenu() == null)
+            neighboors.add(grille.getCase(coord_X,coord_Y-1));
+        return neighboors;
     }
 
     public int getR() {
